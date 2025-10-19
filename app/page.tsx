@@ -36,12 +36,8 @@ export default function Home() {
   const [categories, setCategories] = useState<string[]>([]);
   const [subCategories, setSubCategories] = useState<string[]>([]);
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
-    undefined
-  );
-  const [selectedSubCategory, setSelectedSubCategory] = useState<
-    string | undefined
-  >(undefined);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -57,7 +53,7 @@ export default function Home() {
         .then((data) => setSubCategories(data.subCategories));
     } else {
       setSubCategories([]);
-      setSelectedSubCategory(undefined);
+      setSelectedSubCategory("");
     }
   }, [selectedCategory]);
 
@@ -101,7 +97,7 @@ export default function Home() {
 
             <Select
               value={selectedCategory}
-              onValueChange={(value) => setSelectedCategory(value || undefined)}
+              onValueChange={(value) => setSelectedCategory(value)}
             >
               <SelectTrigger className="w-full md:w-[200px]">
                 <SelectValue placeholder="All Categories" />
@@ -119,7 +115,7 @@ export default function Home() {
               <Select
                 value={selectedSubCategory}
                 onValueChange={(value) =>
-                  setSelectedSubCategory(value || undefined)
+                  setSelectedSubCategory(value)
                 }
               >
                 <SelectTrigger className="w-full md:w-[200px]">
@@ -140,8 +136,8 @@ export default function Home() {
                 variant="outline"
                 onClick={() => {
                   setSearch("");
-                  setSelectedCategory(undefined);
-                  setSelectedSubCategory(undefined);
+                  setSelectedCategory("");
+                  setSelectedSubCategory("");
                 }}
               >
                 Clear Filters
