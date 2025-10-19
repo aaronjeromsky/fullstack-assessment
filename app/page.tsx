@@ -78,6 +78,11 @@ export default function Home() {
       });
   }, [search, selectedCategory, selectedSubCategory]);
 
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(category);
+    setSelectedSubCategory("");
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b">
@@ -97,7 +102,7 @@ export default function Home() {
 
             <Select
               value={selectedCategory}
-              onValueChange={(value) => setSelectedCategory(value)}
+              onValueChange={(value) => handleCategoryClick(value)}
             >
               <SelectTrigger className="w-full md:w-[200px]">
                 <SelectValue placeholder="All Categories" />
@@ -163,14 +168,7 @@ export default function Home() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {products.map((product) => (
-                <Link
-                  key={product.stacklineSku}
-                  href={{
-                    pathname: "/product",
-                    query: { product: JSON.stringify(product) },
-                  }}
-                >
-                  <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
+                <Card key={product.stacklineSku} className="h-full hover:shadow-lg transition-shadow">
                     <CardHeader className="p-0">
                       <div className="relative h-48 w-full overflow-hidden rounded-t-lg bg-muted">
                         {product.imageUrls[0] && (
@@ -189,21 +187,36 @@ export default function Home() {
                         {product.title}
                       </CardTitle>
                       <CardDescription className="flex gap-2 flex-wrap">
-                        <Badge variant="secondary">
+                        <Badge
+                        variant="secondary"
+                        className="hover:bg-secondary/80 transition-colors"
+                        onClick={() => handleCategoryClick(product.categoryName)}
+                      >
                           {product.categoryName}
                         </Badge>
-                        <Badge variant="outline">
+                        <Badge
+                        variant="outline"
+                        className="hover:bg-accent transition-colors"
+                        onClick={() => setSelectedSubCategory(product.subCategoryName)}
+                      >
                           {product.subCategoryName}
                         </Badge>
                       </CardDescription>
                     </CardContent>
                     <CardFooter>
+                      <Link
+                      href={{
+                        pathname: "/product",
+                        query: { product: JSON.stringify(product) },
+                      }}
+                      className="w-full"
+                    >
                       <Button variant="outline" className="w-full">
                         View Details
                       </Button>
-                    </CardFooter>
-                  </Card>
-                </Link>
+                      </Link>
+                  </CardFooter>
+                </Card>
               ))}
             </div>
           </>
