@@ -62,7 +62,7 @@ export default function ProductPage() {
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
           <Link href="/">
-            <Button variant="ghost" className="mb-4">
+            <Button variant="ghost" className="cursor-pointer mb-4">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Products
             </Button>
@@ -79,7 +79,7 @@ export default function ProductPage() {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         <Link href="/">
-          <Button variant="ghost" className="mb-4">
+          <Button variant="ghost" className="cursor-pointer mb-4">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Products
           </Button>
@@ -110,7 +110,7 @@ export default function ProductPage() {
                   <button
                     key={idx}
                     onClick={() => setSelectedImage(idx)}
-                    className={`relative h-20 border-2 rounded-lg overflow-hidden ${
+                    className={`cursor-pointer relative h-20 border-2 rounded-lg overflow-hidden ${
                       selectedImage === idx ? 'border-primary' : 'border-muted'
                     }`}
                   >

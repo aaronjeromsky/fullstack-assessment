@@ -104,7 +104,7 @@ export default function Home() {
               value={selectedCategory}
               onValueChange={(value) => handleCategoryClick(value)}
             >
-              <SelectTrigger className="w-full md:w-[200px]">
+              <SelectTrigger className="cursor-pointer w-full md:w-[200px]">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
@@ -123,7 +123,7 @@ export default function Home() {
                   setSelectedSubCategory(value)
                 }
               >
-                <SelectTrigger className="w-full md:w-[200px]">
+                <SelectTrigger className="cursor-pointer w-full md:w-[200px]">
                   <SelectValue placeholder="All Subcategories" />
                 </SelectTrigger>
                 <SelectContent>
@@ -144,6 +144,7 @@ export default function Home() {
                   setSelectedCategory("");
                   setSelectedSubCategory("");
                 }}
+                className="cursor-pointer"
               >
                 Clear Filters
               </Button>
@@ -189,14 +190,14 @@ export default function Home() {
                       <CardDescription className="flex gap-2 flex-wrap">
                         <Badge
                         variant="secondary"
-                        className="hover:bg-secondary/80 transition-colors"
+                        className="cursor-pointer hover:bg-secondary/80 transition-colors"
                         onClick={() => handleCategoryClick(product.categoryName)}
                       >
                           {product.categoryName}
                         </Badge>
                         <Badge
                         variant="outline"
-                        className="hover:bg-accent transition-colors"
+                        className="cursor-pointer hover:bg-accent transition-colors"
                         onClick={() => setSelectedSubCategory(product.subCategoryName)}
                       >
                           {product.subCategoryName}
@@ -211,7 +212,7 @@ export default function Home() {
                         }}
                         className="w-full"
                       >
-                        <Button variant="outline" className="w-full">
+                        <Button variant="outline" className="cursor-pointer w-full">
                           View Details
                         </Button>
                       </Link>
