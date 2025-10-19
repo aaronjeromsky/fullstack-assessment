@@ -21,20 +21,41 @@ interface Product {
 
 export default function ProductPage() {
   const searchParams = useSearchParams();
-  const productParam = searchParams.get('product');
+  const sku = searchParams.get('sku');
   const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(0);
 
+  // Fetch product data using SKU from products API
   useEffect(() => {
-    if (productParam) {
-      try {
-        const parsedProduct = JSON.parse(productParam);
-        setProduct(parsedProduct);
-      } catch (error) {
-        console.error('Failed to parse product data:', error);
-      }
+    if (!sku) {
+      setProduct(null);
+      setLoading(false);
+      return;
     }
-  }, [productParam]);
+
+    setLoading(true);
+    setProduct(null);
+
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(`/api/products/${sku}`);
+        if (response.ok) {
+          const data = await response.json();
+          setProduct(data);
+        } else {
+          setProduct(null);
+        }
+      } catch (error) {
+        console.error('Failed to fetch product:', error);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [sku]);
 
   if (!product) {
     return (
@@ -47,7 +68,7 @@ export default function ProductPage() {
             </Button>
           </Link>
           <Card className="p-8">
-            <p className="text-center text-muted-foreground">Product not found</p>
+            <p className="text-center text-muted-foreground">{loading ? 'Loading product...' : 'Product not found'}</p>
           </Card>
         </div>
       </div>

@@ -205,15 +205,15 @@ export default function Home() {
                     </CardContent>
                     <CardFooter>
                       <Link
-                      href={{
-                        pathname: "/product",
-                        query: { product: JSON.stringify(product) },
-                      }}
-                      className="w-full"
-                    >
-                      <Button variant="outline" className="w-full">
-                        View Details
-                      </Button>
+                        href={{
+                          pathname: "/product",
+                          query: { sku: product.stacklineSku },
+                        }}
+                        className="w-full"
+                      >
+                        <Button variant="outline" className="w-full">
+                          View Details
+                        </Button>
                       </Link>
                   </CardFooter>
                 </Card>
